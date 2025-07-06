@@ -1,121 +1,225 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>صفحة ميـرو الشخصية</title>
-    <!-- Tailwind CSS CDN -->
+    <link rel="icon" href="/icon/favicon.ico" type="image/x-icon">
+    <title>MIRO</title>
+    <!-- تضمين Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Animate.css for animations -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    <!-- Material Symbols Outlined for icons -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- ربط ملف style.css الخارجي -->
+    <link rel="stylesheet" href="style.css">
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            direction: rtl; /* Set text direction to right-to-left for Arabic */
-            text-align: right; /* Align text to the right */
-            /* Dark, sophisticated background inspired by iPhone 16 dark hues */
-            background: linear-gradient(to bottom right, #0F172A, #1E293B, #0F172A); /* Deep charcoal to dark blue-gray */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 1rem;
+        /* Default (static) values */
+        :root {
+            --header-logo: 40px; /* حجم الشعار الافتراضي للكمبيوتر */
         }
-
-        /* Luxurious Glassmorphism effect for the main container */
-        .glass-effect {
-            background: rgba(255, 255, 255, 0.08); /* Very subtle transparency */
-            backdrop-filter: blur(20px) saturate(200%); /* More blur for a frosted look, increased saturation */
-            -webkit-backdrop-filter: blur(20px) saturate(200%); /* Webkit prefix */
-            border: 1px solid rgba(255, 255, 255, 0.1); /* Very thin, subtle white border */
-            box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.3); /* Larger, darker, more diffused shadow for depth */
-            border-radius: 2.5rem; /* Even more rounded corners for a premium feel */
-            padding: 2.5rem; /* Increased padding */
-        }
-
-        /* Styling for Material Symbols Outlined icons */
-        .material-symbols-outlined {
-          font-variation-settings:
-          'FILL' 0,
-          'wght' 400,
-          'GRAD' 0,
-          'opsz' 24;
-          font-size: 1.6rem; /* Slightly larger icon size */
-        }
-
-        /* Custom styles for social buttons to give them a subtle glass-like appearance */
-        .social-button {
-            background: rgba(255, 255, 255, 0.1); /* Subtle transparent background */
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-        .social-button:hover {
-            background: rgba(255, 255, 255, 0.2); /* Slightly more opaque on hover */
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+        @media screen and (max-width: 480px){
+            :root {
+                --header-logo: 30px; /* حجم الشعار للهواتف الصغيرة */
+            }
         }
     </style>
 </head>
-<body class="p-4">
-    <div class="glass-effect p-8 md:p-12 max-w-sm w-full text-center animate__animated animate__fadeInUp">
-        <!-- Brand Logo Section -->
-        <div class="mb-10 animate__animated animate__zoomIn animate__slow">
-            <!-- Replace the 'M' avatar with the uploaded logo image -->
-            <img src="Black White Minimal Modern Beauty Fashion Brand  Logo.png" alt="Miro Brand Logo" class="w-48 h-auto mx-auto mb-2 filter drop-shadow-[0_0_8px_rgba(255,255,255,0.7)]" onerror="this.onerror=null; this.src='https://placehold.co/192x192/0F172A/FFFFFF?text=MIRO'">
-            <!-- Add the "Fas - فاس" text below the logo -->
-            <p class="text-xl font-semibold text-gray-400 mt-2">
-                Fas - فاس
-            </p>
+<body>
+
+    <!-- رأس الصفحة (Header) الرئيسي -->
+    <header class="w-full p-2 sm:p-4 flex justify-between items-center text-white bg-black bg-opacity-70 backdrop-blur-sm shadow-lg relative z-10">
+        <!-- القسم الأيمن (في RTL هو أقصى اليمين): أيقونة البرجر والبحث -->
+        <div class="flex items-center space-x-2 sm:space-x-4 rtl:space-x-reverse flex-shrink-0">
+            <!-- أيقونة البرجر الجديدة (ستظهر على كل من الجوال والحاسوب) -->
+            <label class="burger" for="burger-toggle">
+                <input type="checkbox" id="burger-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+            <!-- زر البحث -->
+            <a href="/search" title="Open search" class="p-2 rounded-lg hover:bg-gray-700 transition-colors duration-300">
+                <span class="sr-only">Open search</span>
+                <!-- تم تعديل الحجم إلى w-6 h-6 (24px) -->
+                <svg class="w-6 h-6" viewBox="0 0 21 21" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="9" cy="9" r="8" stroke="currentColor" stroke-width="2"></circle>
+                    <rect x="14.2188" y="15.9062" width="1.98612" height="6.65426" fill="currentColor" transform="rotate(-45 14.2188 15.9062)"></rect>
+                </svg>
+            </a>
         </div>
 
-        <!-- About Me Section -->
-        <div class="mb-10 animate__animated animate__fadeInLeft animate__delay-1s">
-            <h2 class="text-3xl font-bold text-gray-200 mb-4">
-                نبذة عني
-            </h2>
-            <p class="text-lg text-gray-300 leading-relaxed">
-                مرحباً، أنا ميـرو. هذه مساحتي الشخصية على الإنترنت حيث أشارك اهتماماتي وأعمالي. أسعى دائماً للتطور والإبداع في عملي، وأحب التواصل مع الأشخاص الجدد الذين يشاركوني نفس الاهتمامات.
-            </p>
-        </div>
+        <!-- الشعار في المنتصف -->
+        <a href="/" class="absolute left-1/2 -translate-x-1/2 p-2 hover:opacity-80 transition-opacity duration-300" style="height:var(--header-logo);display:flex;align-items:center">
+            <img src="/icon/home.svg" alt="شعار Miro.vip" class="max-h-[var(--header-logo)]" width="2545" height="890">
+        </a>
 
-        <!-- Social Media Links Section -->
-        <div class="mb-10 animate__animated animate__fadeInRight animate__delay-2s">
-            <h2 class="text-3xl font-bold text-gray-200 mb-4">
-                تواصل معي
-            </h2>
-            <div class="flex flex-col gap-5">
-                <!-- Social Media Link 1: Facebook -->
-                <a href="#" target="_blank" class="social-button flex items-center justify-center text-white py-3.5 px-6 rounded-xl transition duration-300 ease-in-out transform hover:scale-105">
-                    <span class="material-symbols-outlined ml-3">alternate_email</span> <!-- Placeholder for Facebook, consider using email or another generic contact icon -->
-                    <span class="font-semibold text-xl">فيسبوك</span>
-                </a>
-                <!-- Social Media Link 2: Instagram -->
-                <a href="#" target="_blank" class="social-button flex items-center justify-center text-white py-3.5 px-6 rounded-xl transition duration-300 ease-in-out transform hover:scale-105">
-                    <span class="material-symbols-outlined ml-3">photo_camera</span>
-                    <span class="font-semibold text-xl">انستغرام</span>
-                </a>
-                <!-- Social Media Link 3: Twitter/X -->
-                <a href="#" target="_blank" class="social-button flex items-center justify-center text-white py-3.5 px-6 rounded-xl transition duration-300 ease-in-out transform hover:scale-105">
-                    <span class="material-symbols-outlined ml-3">send</span> <!-- Generic send/share icon for X/Twitter -->
-                    <span class="font-semibold text-xl">إكس (تويتر سابقاً)</span>
-                </a>
-                <!-- Social Media Link 4: LinkedIn -->
-                <a href="#" target="_blank" class="social-button flex items-center justify-center text-white py-3.5 px-6 rounded-xl transition duration-300 ease-in-out transform hover:scale-105">
-                    <span class="material-symbols-outlined ml-3">business_center</span>
-                    <span class="font-semibold text-xl">لينكد إن</span>
-                </a>
-                <!-- Add more social media links as needed -->
+        <!-- القسم الأيسر (في RTL هو أقصى اليسار): زر الحساب وسلة التسوق -->
+        <div class="flex items-center space-x-2 sm:space-x-4 rtl:space-x-reverse flex-shrink-0">
+            <!-- زر الحساب/تسجيل الدخول -->
+            <a href="/account/login" class="text-white p-2 rounded-lg hover:bg-gray-700 transition-colors duration-300">
+                <span class="account inline-block align-middle">
+                    <!-- تم تعديل الحجم إلى w-6 h-6 (24px) -->
+                    <svg class="w-6 h-6" viewBox="0 0 29 28" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M14.4333 0H14.5919C16.5284 0.0251563 18.4512 0.756328 19.8895 2.05844C21.3064 3.31078 22.2618 5.07609 22.5194 6.95078C22.7633 8.59523 22.4773 10.3135 21.71 11.789C21.103 12.9784 20.1886 14.0005 19.0948 14.764C21.4185 15.5712 23.5185 17.0029 25.122 18.8677C26.4722 20.428 27.4741 22.2901 28.0138 24.2823C28.3327 25.4297 28.4874 26.6186 28.5137 27.808V28H26.3262C26.324 25.8852 25.7498 23.7727 24.6588 21.9587C23.3884 19.8598 21.4727 18.1464 19.2179 17.1675C17.4548 16.3959 15.4997 16.0738 13.5818 16.2269C11.508 16.3877 9.47586 17.1084 7.77672 18.3094C6.78359 19.0127 5.88453 19.8543 5.15063 20.8255C3.55594 22.8512 2.70281 25.4275 2.70117 28H0.513672V27.8124C0.543203 26.2139 0.827031 24.6187 1.38648 23.1202C2.14172 21.082 3.38586 19.2287 4.98109 17.7532C6.3975 16.4232 8.09937 15.4055 9.9325 14.764C9.43375 14.4096 8.96453 14.0109 8.55219 13.5581C7.26813 12.1674 6.49703 10.3141 6.42867 8.42133C6.40516 7.59992 6.48664 6.77195 6.70812 5.97898C7.17023 4.24813 8.23773 2.68789 9.67437 1.62039C11.0323 0.585156 12.7298 0.0273438 14.4333 0ZM13.8864 2.22414C12.1003 2.4057 10.4318 3.45844 9.49719 4.98969C8.77094 6.14687 8.47562 7.56383 8.66977 8.91516C8.85133 10.2517 9.51742 11.5134 10.5095 12.4255C11.5031 13.3498 12.8249 13.9174 14.1817 13.9847C15.3662 14.0563 16.5699 13.7555 17.58 13.1332C18.7498 12.4272 19.6565 11.299 20.0967 10.0056C20.5222 8.7768 20.5211 7.40414 20.0945 6.17586C19.6494 4.87266 18.7306 3.73844 17.5472 3.03406C16.4595 2.3718 15.1513 2.08961 13.8864 2.22414Z"></path>
+                    </svg>
+                </span>
+            </a>
+
+            <!-- زر سلة التسوق -->
+            <a href="/cart" title="Open cart" class="p-2 rounded-lg hover:bg-gray-700 transition-colors duration-300">
+                <span class="cart-menu inline-block align-middle relative">
+                    <!-- تم استبدال أيقونة السلة بأيقونة Shopping Bag -->
+                    <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18.5 6h-13C4.12 6 3 7.12 3 8.5v10c0 1.38 1.12 2.5 2.5 2.5h13c1.38 0 2.5-1.12 2.5-2.5v-10C21 7.12 19.88 6 18.5 6zM18.5 19H5.5c-.28 0-.5-.22-.5-.5v-10c0-.28.22-.5.5-.5h13c.28 0 .5.22.5.5v10C19 18.78 18.78 19 18.5 19zM16 9V7c0-2.21-1.79-4-4-4S8 4.79 8 7v2h2V7c0-1.1.9-2 2-2s2 .9 2 2v2H16z"/>
+                    </svg>
+                    <!-- الأرقام تظهر الآن داخل السلة -->
+                    <span class="cart-count-overlay absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-xs font-bold leading-none" data-header-cart-count="">0</span>
+                </span>
+            </a>
+        </div>
+    </header>
+
+    <!-- شريط التنقل الرئيسي الجديد (يظهر أسفل الرأس الرئيسي) -->
+    <nav id="main-navigation-bar" class="w-full bg-black bg-opacity-60 backdrop-blur-sm shadow-md hidden md:block z-10">
+        <ul class="flex justify-center items-center py-3 space-x-6 lg:space-x-10">
+            <!-- عنصر القائمة 'Men' مع Accordion -->
+            <li class="accordion-item relative">
+                <button class="accordion-button flex items-center gap-1 text-white hover:text-gray-300 transition-colors duration-300" aria-expanded="false">
+                    <span class="underline-animation">Men</span>
+                    <svg class="icon w-3 h-2" viewBox="0 0 11 7" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5.06067 4L1.06066 0L0 1.06066L4 5.06067L5.06066 6.12132L6.12132 5.06066L10.1213 1.06067L9.06066 8.79169e-06L5.06067 4Z"></path>
+                    </svg>
+                </button>
+                <div class="accordion-content absolute z-20 bg-gray-900 bg-opacity-90 backdrop-blur-md rounded-lg p-4 mt-2 hidden">
+                    <ul class="submenu flex flex-col space-y-2">
+                        <li><a class="menu-link underline-animation text-white hover:text-gray-300" href="/pages/men">Clothing</a></li>
+                        <li><a class="menu-link underline-animation text-white hover:text-gray-300" href="/pages/accessories">Accessories</a></li>
+                        <li><a class="menu-link underline-animation text-white hover:text-gray-300" href="/pages/shades-of-blvck">Shades of Blvck</a></li>
+                    </ul>
+                </div>
+            </li>
+            <!-- عنصر القائمة 'Women' مع Accordion -->
+            <li class="accordion-item relative">
+                <button class="accordion-button flex items-center gap-1 text-white hover:text-gray-300 transition-colors duration-300" aria-expanded="false">
+                    <span class="underline-animation">Women</span>
+                    <svg class="icon w-3 h-2" viewBox="0 0 11 7" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5.06067 4L1.06066 0L0 1.06066L4 5.06067L5.06066 6.12132L6.12132 5.06066L10.1213 1.06067L9.06066 8.79169e-06L5.06067 4Z"></path>
+                    </svg>
+                </button>
+                <div class="accordion-content absolute z-20 bg-gray-900 bg-opacity-90 backdrop-blur-md rounded-lg p-4 mt-2 hidden">
+                    <ul class="submenu flex flex-col space-y-2">
+                        <li><a class="menu-link underline-animation text-white hover:text-gray-300" href="/collections/women">Clothing</a></li>
+                        <li><a class="menu-link underline-animation text-white hover:text-gray-300" href="/pages/accessories-women">Accessories</a></li>
+                        <li><a class="menu-link underline-animation text-white hover:text-gray-300" href="/pages/shades-of-blvck-women">Shades of Blvck</a></li>
+                    </ul>
+                </div>
+            </li>
+            <!-- عناصر القائمة الثابتة الأخرى -->
+            <li><a class="menu-link underline-animation text-white hover:text-gray-300 transition-colors duration-300" href="/pages/blvck-home">Blvck Home</a></li>
+            <li><a class="menu-link underline-animation text-white hover:text-gray-300 transition-colors duration-300" href="/pages/digital">Digital</a></li>
+            <li><a class="menu-link underline-animation text-white hover:text-gray-300 transition-colors duration-300" href="/pages/collab">Collab</a></li>
+            <li><a class="menu-link underline-animation text-white hover:text-gray-300 transition-colors duration-300" href="/pages/sales">Outlet</a></li>
+        </ul>
+    </nav>
+
+
+    <!-- باقي محتوى الصفحة كما هو -->
+    <main class="flex-grow relative z-10">
+        <!-- قسم البطل (Hero Section) -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1 class="text-5xl md:text-7xl font-bold mb-4">
+                    مجموعة Miro الجديدة
+                </h1>
+                <p class="text-xl md:text-2xl mb-8">
+                    اكتشف أحدث منتجاتنا الأنيقة
+                </p>
+                <div class="flex space-x-4 rtl:space-x-reverse justify-center">
+                    <!-- زر تسوق الآن للرجال -->
+                    <button class="button">
+                        تسوق الآن للرجال
+                        <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                fill-rule="evenodd"
+                                d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm4.28 10.28a.75.75 0 000-1.06l-3-3a.75.75 0 10-1.06 1.06l1.72 1.72H8.25a.75.75 0 000 1.5h5.69l-1.72 1.72a.75.75 0 101.06 1.06l3-3z"
+                                clip-rule="evenodd"
+                            ></path>
+                        </svg>
+                    </button>
+                    <!-- زر تسوق الآن للنساء -->
+                    <button class="button">
+                        تسوق الآن للنساء
+                        <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                fill-rule="evenodd"
+                                d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm4.28 10.28a.75.75 0 000-1.06l-3-3a.75.75 0 10-1.06 1.06l1.72 1.72H8.25a.75.75 0 000 1.5h5.69l-1.72 1.72a.75.75 0 101.06 1.06l3-3z"
+                                clip-rule="evenodd"
+                            ></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- قسم المنتجات المميزة (placeholder) -->
+        <section class="container mx-auto p-8 text-center">
+            <h2 class="text-4xl font-bold my-8 text-white">منتجاتنا المميزة</h2>
+            <p class="text-lg text-gray-400 mb-12">
+                نقدم لك أفضل ما لدينا من تصميمات وجودة.
+            </p>
+            <!-- شبكة المنتجات ستذهب هنا -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- بطاقة المنتج 1 (مثال) -->
+                <div class="bg-gray-800 bg-opacity-70 backdrop-blur-sm rounded-lg shadow-lg p-6">
+                    <img src="https://placehold.co/300x200/555555/FFFFFF?text=Product+1" alt="المنتج 1" class="w-full h-48 object-cover rounded-md mb-4">
+                    <h3 class="text-xl font-semibold mb-2">اسم المنتج الأول</h3>
+                    <p class="text-gray-400 text-sm mb-4">وصف قصير ومثير للمنتج.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-lg font-bold text-white">199.99 ريال</span>
+                        <button class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-300">
+                            أضف للسلة
+                        </button>
+                    </div>
+                </div>
+                <!-- بطاقة المنتج 2 (مثال) -->
+                <div class="bg-gray-800 bg-opacity-70 backdrop-blur-sm rounded-lg shadow-lg p-6">
+                    <img src="https://placehold.co/300x200/555555/FFFFFF?text=Product+2" alt="المنتج 2" class="w-full h-48 object-cover rounded-md mb-4">
+                    <h3 class="text-xl font-semibold mb-2">اسم المنتج الثاني</h3>
+                    <p class="text-gray-400 text-sm mb-4">وصف قصير ومثير للمنتج.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-lg font-bold text-white">249.00 ريال</span>
+                        <button class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-300">
+                            أضف للسلة
+                        </button>
+                    </div>
+                </div>
+                <!-- بطاقة المنتج 3 (مثال) -->
+                <div class="bg-gray-800 bg-opacity-70 backdrop-blur-sm rounded-lg shadow-lg p-6">
+                    <img src="https://placehold.co/300x200/555555/FFFFFF?text=Product+3" alt="المنتج 3" class="w-full h-48 object-cover rounded-md mb-4">
+                    <h3 class="text-xl font-semibold mb-2">اسم المنتج الثالث</h3>
+                    <p class="text-gray-400 text-sm mb-4">وصف قصير ومثير للمنتج.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-lg font-bold text-white">125.50 ريال</span>
+                        <button class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-300">
+                            أضف للسلة
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- تذييل الصفحة (Footer) -->
+    <footer class="bg-gray-900 bg-opacity-70 backdrop-blur-sm text-white p-6 mt-8 relative z-10">
+        <div class="container mx-auto text-center text-sm">
+            <p>&copy; 2024 Miro.vip. جميع الحقوق محفوظة.</p>
+            <div class="flex justify-center space-x-4 mt-2 rtl:space-x-reverse">
+                <a href="#" class="hover:text-gray-300 transition-colors duration-200">سياسة الخصوصية</a>
+                <a href="#" class="hover:text-gray-300 transition-colors duration-200">شروط الاستخدام</a>
+                <a href="#" class="hover:text-gray-300 transition-colors duration-200">اتصل بنا</a>
             </div>
         </div>
+    </footer>
 
-        <p class="text-sm text-gray-400 mt-8">
-            © 2025 ميـرو. جميع الحقوق محفوظة.
-        </p>
-    </div>
+    <!-- ربط ملف script.js الخارجي -->
+    <script src="script.js"></script>
+
 </body>
 </html>
