@@ -1,96 +1,314 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // كود تأثير التوهج في Hero Section
-    const heroSection = document.querySelector('.hero-section');
-    const mediaQueryMD = window.matchMedia('(min-width: 768px)'); // تعريف نقطة التوقف لـ MD (768 بكسل وما فوق)
+/* تعريف الخط الافتراضي وتعيين الخلفية السوداء */
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    /* خلفية الصورة للموقع بالكامل */
+    background-image: url('/icon/80845184-marocain-zellige-seamless.jpg'); /* تم تحديث المسار الصحيح لصورة الزليج */
+    background-size: cover; /* تغطية كاملة للخلفية */
+    background-position: center; /* توسيط الصورة */
+    background-attachment: fixed; /* تثبيت الصورة عند التمرير */
+    color: #f8f8f8;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    position: relative; /* ضروري لتموضع الطبقة الضبابية */
+    overflow-x: hidden; /* لمنع شريط التمرير الأفقي من تأثير الضبابية */
+}
 
-    if (heroSection) {
-        // فحص أولي عند تحميل الصفحة: أخفي الوميض إذا كانت الشاشة بحجم الهاتف
-        if (!mediaQueryMD.matches) {
-            heroSection.style.setProperty('--glow-opacity', '0');
-            heroSection.style.setProperty('--glow-scale', '0');
-        }
+/* الطبقة الضبابية التي تعطي تأثير الزجاج */
+body::before {
+    content: '';
+    position: absolute;
+    top: -20px; /* زيادة الحدود لتغطية كامل الشاشة مع الضبابية */
+    left: -20px;
+    right: -20px;
+    bottom: -20px;
+    background-image: url('/icon/80845184-marocain-zellige-seamless.jpg'); /* نفس الصورة لتطبيق الضبابية عليها */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* تثبيت الطبقة الضبابية أيضاً */
+    filter: blur(8px); /* تطبيق تأثير الضباب */
+    z-index: -1; /* وضع الطبقة خلف المحتوى */
+}
 
-        const applyGlowEffect = (e) => {
-            // تطبيق الوميض فقط إذا كانت الشاشة أكبر من أو تساوي 768 بكسل (شاشات الحاسوب)
-            if (mediaQueryMD.matches) {
-                const rect = heroSection.getBoundingClientRect();
-                const mouseX = e.clientX - rect.left;
-                const mouseY = e.clientY - rect.top;
-                heroSection.style.setProperty('--glow-x', `${mouseX}px`);
-                heroSection.style.setProperty('--glow-y', `${mouseY}px`);
-                heroSection.style.setProperty('--glow-opacity', '1');
-                heroSection.style.setProperty('--glow-scale', '1');
-            } else {
-                // إخفاء الوميض بشكل صريح على شاشات الهاتف
-                heroSection.style.setProperty('--glow-opacity', '0');
-                heroSection.style.setProperty('--glow-scale', '0');
-            }
-        };
+/* تصميم الشعار وحجمه (لم يعد مستخدما بشكل مباشر في الهيدر الجديد، ولكن قد تحتاجه لصور أخرى) */
+.header-image {
+    width: 60px;
+    height: 40px;
+    object-fit: contain;
+}
+/* تصميم صورة زر المستخدم وحجمها (لم يعد مستخدما بشكل مباشر في الهيدر الجديد، ولكن قد تحتاجه لصور أخرى) */
+.user-button-image {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+}
 
-        const hideGlowEffect = () => {
-            // إخفاء الوميض عند مغادرة الفأرة (للحاسوب) أو دائماً على الهاتف
-            // هذه الدالة ستعمل دائماً، ولكن الشروط في applyGlowEffect و mediaQueryMD.addEventListener ستضمن عدم ظهوره على الهاتف
-            heroSection.style.setProperty('--glow-opacity', '0');
-            heroSection.style.setProperty('--glow-scale', '0');
-        };
+/* Hero Section Styling */
+.hero-section {
+    background-color: #000; /* خلفية سوداء صلبة بدلاً من الصورة */
+    min-height: 400px; /* ارتفاع أدنى للهواتف */
+    height: 60vh; /* 60% من ارتفاع الشاشة */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    position: relative;
+    overflow: hidden; /* لإخفاء أجزاء التوهج الزائدة */
+    cursor: pointer; /* لإظهار أن العنصر تفاعلي عند التحويم */
+    /* تعريف متغيرات CSS الافتراضية لتأثير التوهج */
+    --glow-x: 50%;
+    --glow-y: 50%;
+    --glow-opacity: 0;
+    --glow-scale: 0;
+}
 
-        heroSection.addEventListener('mousemove', applyGlowEffect);
-        heroSection.addEventListener('mouseleave', hideGlowEffect);
+/* تأثير التوهج - سيتبع الفأرة */
+.hero-section::before {
+    content: '';
+    position: absolute;
+    left: var(--glow-x);
+    top: var(--glow-y);
+    transform: translate(-50%, -50%) scale(var(--glow-scale));
+    width: 200px; /* الحجم الأساسي لدائرة التوهج */
+    height: 200px;
+    border-radius: 50%; /* لجعلها دائرة */
+    background: radial-gradient(circle at center, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 60%);
+    opacity: var(--glow-opacity); /* التحكم بالشفافية */
+    transition: opacity 0.15s ease-out, transform 0.15s ease-out; /* حركة سلسة عند الظهور والاختفاء */
+    z-index: 1;
+    pointer-events: none; /* لضمان عدم حظر التفاعل مع المحتوى */
+}
 
-        // معالجة تغيير حجم الشاشة ديناميكيًا (إذا قام المستخدم بتغيير حجم النافذة)
-        mediaQueryMD.addEventListener('change', (e) => {
-            if (!e.matches) { // إذا أصبحت الشاشة بحجم الهاتف
-                hideGlowEffect(); // أخفي الوميض فورًا
-            } else { // إذا أصبحت الشاشة بحجم الحاسوب
-                // إعادة ضبط الوميض إلى الحالة المخفية، وسيظهر عند حركة الفأرة
-                heroSection.style.setProperty('--glow-opacity', '0');
-                heroSection.style.setProperty('--glow-scale', '0');
-            }
-        });
+.hero-content {
+    position: relative;
+    z-index: 10; /* لجعل المحتوى فوق الطبقة الضبابية والتوهج */
+}
+
+/* Responsive adjustments for larger screens (e.g., tablets and desktops) */
+@media (min-width: 768px) {
+    /* لم تعد هناك حاجة لـ .header-image و .user-button-image هنا لأنها معرفة أعلاه أو تستخدم متغيرات CSS */
+    .hero-section {
+        height: 70vh; /* ارتفاع أكبر على الشاشات الأكبر */
     }
+}
 
-    // كود Accordion لقائمة التنقل (بدون تغيير)
-    const accordionButtons = document.querySelectorAll('.accordion-button');
+/* ************************************************************************************************** */
+/* CSS للأزرار الجديدة (من Uiverse.io) */
+/* ************************************************************************************************** */
+.button {
+    position: relative;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+    padding-block: 0.5rem;
+    padding-inline: 1.25rem;
+    background-color: #003366; /* الأزرق العميق الفاسي */
+    border-radius: 9999px; /* دائري تمامًا */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffff; /* نص أبيض */
+    gap: 10px; /* مسافة بين النص والأيقونة */
+    font-weight: bold;
+    border: 3px solid rgba(255, 255, 255, 0.3); /* حدود بيضاء شفافة */
+    outline: none;
+    overflow: hidden;
+    font-size: 15px;
+    cursor: pointer;
+}
 
-    accordionButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const accordionItem = button.closest('.accordion-item');
-            const accordionContent = accordionItem.querySelector('.accordion-content');
-            const isExpanded = button.getAttribute('aria-expanded') === 'true';
+.icon {
+    width: 24px;
+    height: 24px;
+    transition: all 0.3s ease-in-out;
+}
 
-            // إغلاق كل قوائم Accordion الأخرى المفتوحة
-            accordionButtons.forEach(otherButton => {
-                const otherItem = otherButton.closest('.accordion-item');
-                const otherContent = otherItem.querySelector('.accordion-content');
-                if (otherButton !== button && otherButton.getAttribute('aria-expanded') === 'true') {
-                    otherButton.setAttribute('aria-expanded', 'false');
-                    otherContent.classList.remove('active');
-                }
-            });
+.button:hover {
+    transform: scale(1.05); /* تكبير طفيف عند التحويم */
+    border-color: rgba(255, 255, 255, 0.6); /* حدود أكثر وضوحاً */
+}
 
-            // تبديل حالة Accordion الحالي
-            if (isExpanded) {
-                button.setAttribute('aria-expanded', 'true');
-                accordionContent.classList.add('active');
-            } else {
-                button.setAttribute('aria-expanded', 'false');
-                accordionContent.classList.remove('active');
-            }
-        });
-    });
+.button:hover .icon {
+    transform: translate(4px); /* تحريك الأيقونة لليمين */
+}
 
-    // إغلاق قوائم Accordion عند النقر خارجها
-    document.addEventListener('click', (event) => {
-        accordionButtons.forEach(button => {
-            const accordionItem = button.closest('.accordion-item');
-            if (!accordionItem.contains(event.target)) {
-                const accordionContent = accordionItem.querySelector('.accordion-content');
-                if (button.getAttribute('aria-expanded') === 'true') {
-                    button.setAttribute('aria-expanded', 'false');
-                    accordionContent.classList.remove('active');
-                }
-            }
-        });
-    });
+.button:hover::before {
+    animation: shine 1.5s ease-out infinite; /* تشغيل تأثير اللمعان */
+}
 
-});
+.button::before {
+    content: "";
+    position: absolute;
+    width: 100px;
+    height: 100%;
+    background-image: linear-gradient(
+        120deg,
+        rgba(255, 255, 255, 0) 30%,
+        rgba(255, 255, 255, 0.8),
+        rgba(255, 255, 255, 0) 70%
+    );
+    top: 0;
+    left: -100px;
+    opacity: 0.6;
+}
+
+@keyframes shine {
+    0% {
+        left: -100px;
+    }
+    60% {
+        left: 100%;
+    }
+    to {
+        left: 100%;
+    }
+}
+/* ************************************************************************************************** */
+
+/* أنماط الـ Accordion والقائمة الجديدة */
+.site-nav ul {
+    list-style: none; /* إزالة النقاط الافتراضية للقائمة */
+    padding: 0;
+    margin: 0;
+}
+
+.site-nav .accordion-item {
+    position: relative; /* مهم لتموضع القائمة المنسدلة */
+}
+
+.site-nav .accordion-button {
+    background: none;
+    border: none;
+    padding: 0.5em 0; /* تحكم في التباعد بين عناصر القائمة */
+    font-size: 1rem;
+    font-weight: bold;
+    color: inherit; /* ليرث اللون من العنصر الأب (.text-white) */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.25em; /* مسافة بين النص والأيقونة */
+}
+
+.site-nav .accordion-button .icon {
+    transition: transform 0.2s ease-in-out;
+}
+
+.site-nav .accordion-button[aria-expanded="true"] .icon {
+    transform: rotate(180deg); /* تدوير الأيقونة عند الفتح */
+}
+
+.accordion-content {
+    /* الأنماط هنا هي الأساس، والباقي يتم التحكم به عبر JavaScript */
+    transition: opacity 0.3s ease-out, max-height 0.3s ease-out, visibility 0.3s ease-out;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    visibility: hidden; /* إخفاء العنصر تمامًا عندما يكون مطويًا */
+}
+
+.accordion-content.active {
+    opacity: 1;
+    max-height: 200px; /* يمكن تعديل هذا الارتفاع حسب محتوى القائمة المنسدلة */
+    visibility: visible;
+}
+
+/* Underline Animation (تأثير الخط تحت الروابط) */
+.underline-animation {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 2px; /* مسافة بين النص والخط */
+}
+
+.underline-animation::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 1px; /* سمك الخط */
+    bottom: 0;
+    left: 0;
+    background-color: #DAA520; /* لون ذهبي/نحاسي */
+    transition: width 0.3s ease-in-out;
+}
+
+.underline-animation:hover::after {
+    width: 100%;
+}
+
+/* ************************************************************************************************** */
+/* CSS لأيقونة البرجر الجديدة (من Uiverse.io) */
+/* ************************************************************************************************** */
+.burger {
+    position: relative;
+    width: 32px; /* تم تعديل العرض */
+    height: 24px; /* تم تعديل الارتفاع */
+    background: transparent;
+    cursor: pointer;
+    display: block; /* للتأكد من أنها تظهر بشكل صحيح في Flexbox */
+}
+
+.burger input {
+    display: none;
+}
+
+.burger span {
+    display: block;
+    position: absolute;
+    height: 4px;
+    width: 100%;
+    background: currentColor; /* ليرث لون النص الأبيض من العنصر الأب (.text-white) */
+    border-radius: 9px;
+    opacity: 1;
+    left: 0;
+    transform: rotate(0deg);
+    transition: .25s ease-in-out;
+}
+
+.burger span:nth-of-type(1) {
+    top: 0px;
+    transform-origin: left center;
+}
+
+.burger span:nth-of-type(2) {
+    top: 50%;
+    transform: translateY(-50%);
+    transform-origin: left center;
+}
+
+.burger span:nth-of-type(3) {
+    top: 100%;
+    transform-origin: left center;
+    transform: translateY(-100%);
+}
+
+.burger input:checked ~ span:nth-of-type(1) {
+    transform: rotate(45deg);
+    top: 0px;
+    left: 4px; /* تم تعديل الموضع */
+}
+
+.burger input:checked ~ span:nth-of-type(2) {
+    width: 0%;
+    opacity: 0;
+}
+
+.burger input:checked ~ span:nth-of-type(3) {
+    transform: rotate(-45deg);
+    top: 20px; /* تم تعديل الموضع */
+    left: 4px; /* تم تعديل الموضع */
+}
+/* ************************************************************************************************** */
+
+/* أنماط تراكب عدد السلة داخل الأيقونة */
+.cart-count-overlay {
+    color: #000; /* نص أسود لتباين جيد مع أيقونة السلة البيضاء */
+    text-shadow: 0 0 1px rgba(0,0,0,0.5); /* ظل بسيط لتحسين القراءة */
+    /* يتم التحكم في الحجم والموضع بالفئات الموجودة في HTML (text-xs, top-1/2, left-1/2, إلخ) */
+}
+
+/* إخفاء عدد السلة إذا كان صفرًا */
+.cart-count-overlay[data-header-cart-count="0"] {
+    display: none;
+}
